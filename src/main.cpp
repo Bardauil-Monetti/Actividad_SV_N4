@@ -104,22 +104,22 @@ const char pagina_template[] PROGMEM = R"rawliteral(
 
 
 void toggle(){
-    valorPote = analogRead(pote);
-    int pwm = map(valorPote, 0, 4095, 0, 255);
-    if(ledEncendido) {
-    ledcWrite(0, pwm); 
-    }else{
-    ledcWrite(0, 0);   
-    }
-    ledEncendido = !ledEncendido;
-    server.sendHeader("Location", "/"); // dice que la página se vaya a /
-    server.send(302, "text/plain", ""); // 302 dice que el /toggle no está y que vaya a la locación de antes
+    ledEncendido = !ledEncendido;           
+    int pwm = map(analogRead(pote), 0, 4095, 0, 255); 
+    
+    server.sendHeader("Location", "/");
+    server.send(302, "text/plain", "");
 }
+
 void monitor(){
     valorPote = analogRead(pote);
     volts = (valorPote/4095.0) * 3.3;
     int pwm = map(valorPote, 0, 4095, 0, 255);
-    ledcWrite(0, pwm);
+    if(ledEncendido){
+        ledcWrite(0, pwm);
+    } else {
+        ledcWrite(0, 0);
+    }
 }
 void setup() {
   Serial.begin(115200);
