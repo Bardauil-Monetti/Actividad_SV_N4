@@ -96,7 +96,7 @@ const char pagina_template[] PROGMEM = R"rawliteral(
   </div>
 
   <div class="boton-container">
-    <a href="/toggleLED"><button class="boton">__ACCIONAR__</button></a>
+    <a href="/toggleLED"><button class="boton">__pulsar__</button></a>
   </div>
   
 </body>
@@ -157,7 +157,7 @@ void setup() {
     if (ledEncendido == true)  textoBoton = "APAGAR";
     else textoBoton = "ENCENDER";
     //pagina.replace busca el texto y lo reemplaza con lo que pongas. 
-    pagina.replace("__ACCIONAR__", textoBoton);
+    pagina.replace("__pulsar__", textoBoton);
     String lectura = String(volts, 2); // 2 decimales
     pagina.replace("X.XX", lectura);
 
